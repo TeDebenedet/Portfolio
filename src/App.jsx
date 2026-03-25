@@ -233,7 +233,7 @@ const socialLinks = [
 const highlights = [
   { value: "80+", label: "posts / week overseen" },
   { value: "10", label: "social platforms managed" },
-  { value: "500M+", label: "views generated" },
+  { value: "700M+", label: "views generated" },
   { value: "2", label: "music profiles built" },
 ];
 
@@ -247,7 +247,7 @@ const expertise = [
 ];
 
 const languageLevels = [
-  { name: "English", level: "Fluent", bars: 4 },
+  { name: "English", level: "Native", bars: 5 },
   { name: "Spanish", level: "Native", bars: 5 },
   { name: "Dutch", level: "Professional", bars: 3 },
   { name: "German", level: "Conversational", bars: 2 },
@@ -257,17 +257,17 @@ const experienceCards = [
   {
     eyebrow: "Current Role",
     title: "Social Media Manager @ Funktasy",
-    text: "Leading multi-platform content operations across YouTube, Instagram, Facebook, and TikTok with a focus on consistent growth, workflow efficiency, and high-quality output.",
+    text: "Leading multi-platform content operations across YouTube, Instagram, Facebook, and TikTok with a focus on consistent growth, workflow efficiency, and high-quality output, while contributing to over 500M short-form views generated across platforms.",
   },
   {
     eyebrow: "Creative Work",
-    title: "Content Creator & Musician",
-    text: "Built and managed two music-focused online profiles across YouTube, Instagram, and TikTok, reaching 50K+ viewers and nearly 300 followers in four months.",
+    title: "Content Creator & Profile Builder",
+    text: "Built and managed multiple online profiles through short-form content strategy. My most successful sports-related profile reached 120K followers and over 200M views across platforms.",
   },
   {
-    eyebrow: "Composition",
-    title: "Film Score Composer",
-    text: "Composed the original score for the Dutch short indie film Zandhaas, produced in collaboration with the Netherlands Film Academy.",
+    eyebrow: "Startup Project",
+    title: "Business Startup – Goodwash",
+    text: "Collaborated with a team to develop Goodwash, an app designed to simplify laundry tasks. Worked through the full startup process including ideation, market research, business planning, app design, and presenting the concept to potential investors.",
   },
 ];
 
@@ -501,7 +501,7 @@ export default function App() {
 <motion.div
   aria-hidden="true"
   className="pointer-events-none absolute inset-0 z-20 overflow-hidden rounded-[1.55rem]"
-  style={{ x: heroRefractX, y: heroRefractY, opacity: 0.35 }}
+  style={{ x: heroRefractX, y: heroRefractY, opacity: 0.35, scale: 1.01 }}
 >
   <div className="absolute inset-0 rounded-[1.55rem] border border-white/[0.05]" />
   <div className="absolute inset-[2px] rounded-[1.45rem] border-t border-l border-white/[0.14] opacity-90" />
@@ -560,19 +560,15 @@ export default function App() {
             transition={{ duration: 0.95, delay: 0.08 }}
           >
             <p className="mb-5 text-xs uppercase tracking-[0.42em] text-violet-200/72">
-              Social Media Manager • Musician • Composer
+              Social Media Manager • Musician • Business Master Student
             </p>
 
             <h1 className="max-w-4xl text-5xl font-semibold leading-[0.98] sm:text-6xl xl:text-7xl">
-              <SpotlightHeading>
-                I build digital presence
-                <span className="block">with strategy, aesthetics,</span>
-                <span className="block">and musical identity.</span>
-              </SpotlightHeading>
+              <SpotlightHeading>Tobias Debenedet</SpotlightHeading>
             </h1>
 
             <p className="mt-7 max-w-2xl text-base leading-8 text-white/68 sm:text-lg">
-              Social Media Manager at Funktasy Record Label & Magazine, Musicology graduate specialized in Music & Media, and creative focused on content systems, audience growth, and original music.
+              Social Media Manager at Funktasy Record Label & Magazine, Musicology graduate specialized in Music &amp; Media, and Business Master student focused on strategy, systems, audience growth, and original music.
             </p>
 
             <div className="mt-9 flex flex-wrap gap-4">
@@ -632,13 +628,13 @@ export default function App() {
                 <SpotlightHeading>Creative systems with taste and structure.</SpotlightHeading>
               </h2>
               <p className="mt-6 max-w-2xl text-lg leading-8 text-white/86 sm:text-xl">
-                I design digital systems where content, music, and strategy feel aligned.
+                I work where content, music, and business strategy come together.
               </p>
               <p className="mt-6 max-w-3xl text-base leading-8 text-white/68">
                 My work lives at the intersection of music, media, and digital strategy. I enjoy building content ecosystems that look refined, run efficiently, and create momentum across platforms — while still leaving room for artistry and personal expression.
               </p>
               <p className="mt-5 max-w-3xl text-base leading-8 text-white/68">
-                Alongside managing high-volume content operations, I also compose and release music, which shapes the way I think about branding, storytelling, rhythm, and audience experience.
+                Alongside managing high-volume content operations and releasing music, I am also pursuing a Business Master, which has strengthened my interest in entrepreneurship, systems thinking, growth, and the strategic side of creative work.
               </p>
             </AboutPanel>
 
