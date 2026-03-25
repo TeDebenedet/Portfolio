@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import {
   motion,
   useMotionTemplate,
@@ -11,52 +11,12 @@ import profileImg from "./assets/profile.jpg";
 import maestroThumb from "./assets/thumbnails/maestro.jpg";
 
 const SpotlightHeading = ({ children, className = "" }) => {
-  const [active, setActive] = useState(false);
-  const x = useMotionValue(50);
-  const y = useMotionValue(50);
-
-  const spotlight = useMotionTemplate`
-    radial-gradient(
-      180px circle at ${x}% ${y}%,
-      rgba(244,114,182,0.98) 0%,
-      rgba(196,181,253,0.96) 12%,
-      rgba(255,255,255,1) 28%,
-      rgba(255,255,255,1) 48%,
-      rgba(255,255,255,1) 100%
-    )
-  `;
-
-  const handleMove = (e) => {
-    const rect = e.currentTarget.getBoundingClientRect();
-    const px = ((e.clientX - rect.left) / rect.width) * 100;
-    const py = ((e.clientY - rect.top) / rect.height) * 100;
-    x.set(px);
-    y.set(py);
-    if (!active) setActive(true);
-  };
-
   return (
-    <span className={`relative inline-block ${className}`}>
-      <span className="text-white">{children}</span>
-      <motion.span
-        aria-hidden="true"
-        onPointerEnter={() => setActive(true)}
-        onPointerMove={handleMove}
-        onPointerLeave={() => setActive(false)}
-        className="absolute inset-0 inline-block cursor-default overflow-visible whitespace-pre-wrap [line-height:inherit]"
-        style={{
-          backgroundImage: active ? spotlight : "none",
-          backgroundClip: "text",
-          WebkitBackgroundClip: "text",
-          color: "transparent",
-          WebkitTextFillColor: "transparent",
-          paddingBottom: "0.12em",
-          textShadow: "none",
-          filter: "none",
-        }}
-      >
-        {children}
-      </motion.span>
+    <span
+      className={`relative inline-block bg-gradient-to-r from-white via-violet-200/80 to-white bg-clip-text text-transparent ${className}`}
+      style={{ textShadow: "0 0 20px rgba(255,255,255,0.08)" }}
+    >
+      {children}
     </span>
   );
 };
@@ -357,6 +317,16 @@ export default function App() {
   const [activeSection, setActiveSection] = useState("about");
   const [openTrack, setOpenTrack] = useState(null);
 
+  useEffect(() => {
+    const handleMove = (e) => {
+      document.documentElement.style.setProperty("--ambient-x", `${e.clientX}px`);
+      document.documentElement.style.setProperty("--ambient-y", `${e.clientY}px`);
+    };
+
+    window.addEventListener("mousemove", handleMove);
+    return () => window.removeEventListener("mousemove", handleMove);
+  }, []);
+
   const navItems = useMemo(
     () => [
       { label: "About", target: "#about", id: "about" },
@@ -411,6 +381,14 @@ export default function App() {
 
   return (
     <div className="min-h-screen overflow-x-hidden bg-[#04010a] text-white selection:bg-fuchsia-400/30">
+      <div
+        aria-hidden="true"
+        className="pointer-events-none fixed inset-0 z-[1]"
+        style={{
+          background: `radial-gradient(700px circle at var(--ambient-x, 50%) var(--ambient-y, 50%), rgba(255,255,255,0.045), rgba(255,255,255,0.02) 45%, transparent 75%)`,
+          filter: "blur(70px)",
+        }}
+      />
       <div className="relative z-[2]">
         <div className="pointer-events-none fixed inset-0 overflow-hidden">
           <motion.div
@@ -716,10 +694,10 @@ export default function App() {
           >
             <p className="text-xs uppercase tracking-[0.36em] text-violet-200/70">Music</p>
             <h2 className="mt-4 text-3xl font-semibold leading-[1.08] sm:text-4xl">
-              <SpotlightHeading>A space for original work and composition.</SpotlightHeading>
+              <SpotlightHeading>Music Portfolio</SpotlightHeading>
             </h2>
             <p className="mt-4 max-w-3xl leading-8 text-white/66">
-              This section is designed so you can showcase your own music in a premium way. You can swap these cards for embedded players, YouTube videos, Spotify links, or direct audio previews.
+              This section showcases my musical work through a selection of original compositions and curated playlists.
             </p>
           </motion.div>
 
