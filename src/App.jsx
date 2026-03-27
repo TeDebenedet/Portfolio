@@ -185,6 +185,42 @@ const LanguageMeter = ({ name, level, bars }) => {
   );
 };
 
+const OrganizationTile = ({ organization, index }) => {
+  // Per-logo sizing tweaks for optical balance
+  const sizeMap = {
+    // Tuned for visual balance (not intrinsic size)
+    "Funktasy": "max-h-16 scale-125",
+    "International Baccalaureate": "max-h-18 scale-115",
+    "UC Berkeley": "max-h-16 scale-135",
+    "Utrecht University": "max-h-18 scale-120",
+    "University of Amsterdam": "max-h-16 scale-135",
+  };
+
+  const sizeClass = sizeMap[organization.name] || "max-h-14";
+
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 12 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.42, delay: index * 0.045, ease: "easeOut" }}
+      viewport={{ once: true, amount: 0.2 }}
+      className="group flex min-h-[96px] items-center justify-center px-4"
+    >
+      {organization.logo ? (
+        <img
+          src={organization.logo}
+          alt={`${organization.name} logo`}
+          className={`w-auto max-w-[220px] object-contain opacity-55 grayscale transition duration-300 ease-out group-hover:opacity-100 group-hover:grayscale-0 ${sizeClass}`}
+        />
+      ) : (
+        <p className="text-center text-[12px] uppercase tracking-[0.28em] text-white/36 transition duration-300 group-hover:text-white/60 sm:text-[13px]">
+          {organization.name}
+        </p>
+      )}
+    </motion.div>
+  );
+};
+
 const socialLinks = [
   { label: "LinkedIn", href: "https://www.linkedin.com/in/tobias-debenedet" },
   { label: "Email", href: "mailto:tobias.debenedet@gmail.com" },
@@ -211,6 +247,20 @@ const languageLevels = [
   { name: "Spanish", level: "Native", bars: 5 },
   { name: "Dutch", level: "Professional", bars: 3 },
   { name: "German", level: "Conversational", bars: 2 },
+];
+
+import funktasyLogo from "./assets/logos/ff.png";
+import ibLogo from "./assets/logos/ib.svg";
+import berkeleyLogo from "./assets/logos/ucberkley.png";
+import uuLogo from "./assets/logos/uu.png";
+import uvaLogo from "./assets/logos/uva.png";
+
+const organizations = [
+  { name: "Funktasy", logo: funktasyLogo },
+  { name: "International Baccalaureate", logo: ibLogo },
+  { name: "UC Berkeley", logo: berkeleyLogo },
+  { name: "Utrecht University", logo: uuLogo },
+  { name: "University of Amsterdam", logo: uvaLogo },
 ];
 
 const experienceCards = [
@@ -465,28 +515,25 @@ export default function App() {
               className="group relative h-[580px] w-[380px] rounded-[2rem] border border-white/10 bg-white/[0.05] p-3 shadow-[inset_0_1px_0_rgba(255,255,255,0.1),inset_0_-1px_0_rgba(255,255,255,0.02),0_35px_120px_rgba(0,0,0,0.55)] backdrop-blur-xl"
             >
               <div className="pointer-events-none absolute inset-[1px] rounded-[calc(2rem-1px)] border border-white/[0.04]" />
-              <div className="relative h-full w-full overflow-hidden rounded-[1.55rem] bg-black"
-              >
-                {/* IMAGE */}
-<motion.img
-  src={profileImg}
-  alt="Tobias Debenedet portrait"
-  style={{ y: imageY, scale: imageScale }}
-  className="h-full w-full object-cover grayscale"
-/>
+              <div className="relative h-full w-full overflow-hidden rounded-[1.55rem] bg-black">
+                <motion.img
+                  src={profileImg}
+                  alt="Tobias Debenedet portrait"
+                  style={{ y: imageY, scale: imageScale }}
+                  className="h-full w-full object-cover grayscale"
+                />
 
-{/* REFRACTION LAYER (ON TOP OF IMAGE) */}
-<motion.div
-  aria-hidden="true"
-  className="pointer-events-none absolute inset-0 z-20 overflow-hidden rounded-[1.55rem]"
-  style={{ x: heroRefractX, y: heroRefractY, opacity: 0.35, scale: 1.01 }}
->
-  <div className="absolute inset-0 rounded-[1.55rem] border border-white/[0.05]" />
-  <div className="absolute inset-[2px] rounded-[1.45rem] border-t border-l border-white/[0.14] opacity-90" />
-  <div className="absolute inset-[2px] rounded-[1.45rem] border-r border-b border-white/[0.06] opacity-80" />
-  <div className="absolute left-0 top-0 h-28 w-28 rounded-tl-[1.45rem] bg-[radial-gradient(circle_at_top_left,rgba(255,255,255,0.22),rgba(255,255,255,0.06)_40%,transparent_70%)]" />
-  <div className="absolute bottom-0 right-0 h-28 w-28 rounded-br-[1.45rem] bg-[radial-gradient(circle_at_bottom_right,rgba(255,255,255,0.14),rgba(255,255,255,0.04)_40%,transparent_70%)]" />
-</motion.div>
+                <motion.div
+                  aria-hidden="true"
+                  className="pointer-events-none absolute inset-0 z-20 overflow-hidden rounded-[1.55rem]"
+                  style={{ x: heroRefractX, y: heroRefractY, opacity: 0.35, scale: 1.01 }}
+                >
+                  <div className="absolute inset-0 rounded-[1.55rem] border border-white/[0.05]" />
+                  <div className="absolute inset-[2px] rounded-[1.45rem] border-t border-l border-white/[0.14] opacity-90" />
+                  <div className="absolute inset-[2px] rounded-[1.45rem] border-r border-b border-white/[0.06] opacity-80" />
+                  <div className="absolute left-0 top-0 h-28 w-28 rounded-tl-[1.45rem] bg-[radial-gradient(circle_at_top_left,rgba(255,255,255,0.22),rgba(255,255,255,0.06)_40%,transparent_70%)]" />
+                  <div className="absolute bottom-0 right-0 h-28 w-28 rounded-br-[1.45rem] bg-[radial-gradient(circle_at_bottom_right,rgba(255,255,255,0.14),rgba(255,255,255,0.04)_40%,transparent_70%)]" />
+                </motion.div>
 
                 <motion.div
                   animate={{ x: [0, 24, 0], opacity: [0.18, 0.34, 0.18] }}
@@ -546,7 +593,7 @@ export default function App() {
             </h1>
 
             <p className="mt-7 max-w-2xl text-base leading-8 text-white/68 sm:text-lg">
-              Social Media Manager at Funktasy Record Label & Magazine, Musicology graduate specialized in Music &amp; Media, and Business Master student focused on strategy, systems, audience growth, and original music.
+              Social Media Manager at Funktasy Record Label &amp; Magazine, Musicology graduate specialized in Music &amp; Media, and Business Master student focused on strategy, systems, audience growth, and original music.
             </p>
 
             <div className="mt-9 flex flex-wrap gap-4">
@@ -591,6 +638,30 @@ export default function App() {
         </motion.section>
 
         <motion.section
+          initial={{ opacity: 0, y: 18 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.45, ease: "easeOut" }}
+          viewport={{ once: true, amount: 0.18 }}
+          className="mx-auto max-w-7xl px-6 pb-8 lg:px-8"
+        >
+          <div className="rounded-[2rem] border border-white/8 bg-white/[0.02] px-6 py-7 shadow-[inset_0_1px_0_rgba(255,255,255,0.04),0_10px_35px_rgba(0,0,0,0.12)] backdrop-blur-xl sm:px-8 sm:py-8">
+            <p className="mb-7 text-center text-[11px] uppercase tracking-[0.42em] text-violet-200/60 sm:mb-8">
+              Experiences across
+            </p>
+
+            <div className="grid items-center gap-y-3 sm:grid-cols-2 lg:grid-cols-5 lg:gap-x-4">
+              {organizations.map((organization, index) => (
+                <OrganizationTile
+                  key={organization.name}
+                  organization={organization}
+                  index={index}
+                />
+              ))}
+            </div>
+          </div>
+        </motion.section>
+
+        <motion.section
           id="about"
           onViewportEnter={() => handleSectionInView("about")}
           initial={{ opacity: 0, y: 30, scale: 0.985 }}
@@ -609,10 +680,13 @@ export default function App() {
                 I work where content, music, and business strategy come together.
               </p>
               <p className="mt-6 max-w-3xl text-base leading-8 text-white/68">
-                My work lives at the intersection of music, media, and digital strategy. I enjoy building content ecosystems that look refined, run efficiently, and create momentum across platforms — while still leaving room for artistry and personal expression.
+                I’m a Social Media Manager at Funktasy Record Label &amp; Magazine, where I oversee high-volume, multi-platform content operations across YouTube, Instagram, Facebook, and TikTok. I manage scheduling, coordinate a remote team, and ensure consistent output and quality across ~80 posts per week — turning content into a structured, repeatable system that drives growth.
               </p>
               <p className="mt-5 max-w-3xl text-base leading-8 text-white/68">
-                Alongside managing high-volume content operations and releasing music, I am also pursuing a Business Master, which has strengthened my interest in entrepreneurship, systems thinking, growth, and the strategic side of creative work.
+                My work sits at the intersection of music, media, and strategy. With a background in Musicology (specialized in Music &amp; Media) and ongoing studies in Business Administration, I approach content not just creatively, but operationally, focusing on strategy, workflows, and scalability.
+              </p>
+              <p className="mt-5 max-w-3xl text-base leading-8 text-white/68">
+                Alongside this, I create music, including composing for film, and have built my own content platforms from the ground up. These experiences shape how I think about content: not just as output, but as part of a larger ecosystem that connects audience, platform, and brand.
               </p>
             </AboutPanel>
 
